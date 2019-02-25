@@ -267,8 +267,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-  // return arr.map((item, i, arr) => item = );
-  throw new Error('Not implemented');
+  return arr.reduce((sum, val, i) => sum.concat(Array(i + 1).fill(val)), []);
 }
 
 
@@ -304,7 +303,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-  throw new Error('Not implemented');
+  return arr.filter(elem => typeof (elem) === "number" && elem > 0).length;// eslint-disable-line
 }
 
 /**
@@ -321,8 +320,10 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-  throw new Error('Not implemented');
+  const num = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];// eslint-disable-line
+  return arr.sort((a, b) => num.indexOf(a) > num.indexOf(b));
 }
+
 
 /**
  * Returns the sum of all items in the specified array of numbers
@@ -337,7 +338,7 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-  return arr.reduce(function(sum, current) {return sum + current;}, 0);
+  return arr.reduce((sum, current) => sum + current, 0);
 }
 
 /**
@@ -353,7 +354,7 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-  throw new Error('Not implemented');
+  return arr.filter(item => !item ).length;
 }
 
 /**
@@ -425,6 +426,7 @@ function sortCitiesArray(arr) {
   });
 }
 
+
 /**
  * Creates an indentity matrix of the specified size
  *
@@ -444,7 +446,7 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]
  */
 function getIdentityMatrix(n) {
-  throw new Error('Not implemented');
+  return Array.from({length: n}, (v, index) => Array.from({length: n}, (v, _index) => _index === index ? 1 : 0));// eslint-disable-line
 }
 
 /**
@@ -461,7 +463,7 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-  throw new Error('Not implemented');
+  return Array.from({ length: end - start + 1 }, value => value = start++);
 }
 
 /**
@@ -528,7 +530,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-  throw new Error('Not implemented');
+  return arr.reduce( ( (sum, item) => sum.concat(childrenSelector(item)) ), []);
 }
 
 
@@ -568,7 +570,11 @@ function getElementByIndexes(arr, indexes) {
  *
  */
 function swapHeadAndTail(arr) {
-  throw new Error('Not implemented');
+  const tailIndexStart = Math.round(arr.length / 2);
+  const head = arr.slice(0, arr.length / 2);
+  const tail = arr.slice(tailIndexStart, arr.length);
+  if (arr.length % 2) return tail.concat(arr[tailIndexStart - 1], head);
+  return tail.concat(head);
 }
 
 module.exports = {
