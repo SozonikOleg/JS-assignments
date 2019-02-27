@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 
 /** *******************************************************************************************
  *                                                                                           *
@@ -512,7 +513,12 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-  throw new Error('Not implemented');
+  return array.reduce( (map, current) => {
+    if(map.has(keySelector(current))){
+      map.get(keySelector(current)).push(valueSelector(current));
+    } else { map.set(keySelector(current), [valueSelector(current)]);}
+    return map;
+  }, new Map());
 }
 
 
@@ -547,7 +553,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-  throw new Error('Not implemented');
+  return indexes.reduce((a, b)=>a[b], arr);
 }
 
 
