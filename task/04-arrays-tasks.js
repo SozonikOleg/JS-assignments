@@ -85,7 +85,7 @@ function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 function getArrayOfStrings(arr) {
-  return arr.filter(item => typeof item === typeof '');
+  return arr.filter(item => typeof item === 'string');
 }
 
 /**
@@ -117,7 +117,7 @@ function removeFalsyValues(arr) {
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
  */
 function getUpperCaseStrings(arr) {
-  return arr.map(name =>  name.toUpperCase());
+  return arr.map(name => name.toUpperCase());
 }
 
 /**
@@ -131,7 +131,7 @@ function getUpperCaseStrings(arr) {
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
  */
 function getStringsLength(arr) {
-  return arr.map((item, i) => item.length);
+  return arr.map((item) => item.length);
 }
 
 /**
@@ -146,7 +146,7 @@ function getStringsLength(arr) {
  *    [ 1, 'b', 'c'], 0, 'x'  => [ 'x', 1, 'b', 'c' ]
  */
 function insertItem(arr, item, index) {
-  return arr.splice( index, 0, item );
+  return arr.splice(index, 0, item);
 }
 
 /**
@@ -175,7 +175,7 @@ function getHead(arr, n) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 function getTail(arr, n) {
-  return arr.slice(arr.length - n);
+  return arr.slice(- n);
 }
 
 
@@ -234,7 +234,7 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-  return arr.reduce((a, x, i) => [...a, a.length > 0 ? x + a[i-1] : x], []);
+  return arr.reduce((aсс, curr, index) => [...aсс, aсс.length > 0 ? curr + aсс[index - 1] : curr], []);
 }
 
 /**
@@ -355,7 +355,7 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-  return arr.filter(item => !item ).length;
+  return arr.filter(item => !item).length;
 }
 
 /**
@@ -373,7 +373,7 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurences(arr, item) {
-  return arr.reduce((n, val) => n + (val === item), 0);
+  return arr.filter((elem) => (elem === item)).length;
 }
 
 /**
@@ -388,7 +388,7 @@ function findAllOccurences(arr, item) {
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
 function toStringList(arr) {
-  return arr.slice(',');
+  return arr.join(',');
 }
 
 
@@ -418,12 +418,8 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-  return arr.sort((one, two) => {
-    if (one.country < two.country) return -1;
-    if (one.country > two.country) return 1;
-    if (one.city < two.city) return -1;
-    if (one.city > two.city) return 1;
-    return 0;
+  return arr.sort(function (one, two) {
+    return one.country.localeCompare(two.country) || one.city.localeCompare(two.city);
   });
 }
 
@@ -447,7 +443,7 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]
  */
 function getIdentityMatrix(n) {
-  return Array.from({length: n}, (v, index) => Array.from({length: n}, (v, _index) => _index === index ? 1 : 0));// eslint-disable-line
+  return Array.from({ length: n }, (v, index) => Array.from({ length: n }, (v, _index) => _index === index ? 1 : 0));// eslint-disable-line
 }
 
 /**
@@ -513,10 +509,10 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-  return array.reduce( (map, current) => {
-    if(map.has(keySelector(current))){
+  return array.reduce((map, current) => {
+    if (map.has(keySelector(current))) {
       map.get(keySelector(current)).push(valueSelector(current));
-    } else { map.set(keySelector(current), [valueSelector(current)]);}
+    } else { map.set(keySelector(current), [valueSelector(current)]); }
     return map;
   }, new Map());
 }
@@ -536,7 +532,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-  return arr.reduce( ( (sum, item) => sum.concat(childrenSelector(item)) ), []);
+  return arr.reduce(((sum, item) => sum.concat(childrenSelector(item))), []);
 }
 
 
@@ -553,7 +549,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-  return indexes.reduce((a, b)=>a[b], arr);
+  return indexes.reduce((a, b) => a[b], arr);
 }
 
 
