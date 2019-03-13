@@ -180,12 +180,12 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-  for (var i = 0; i < str.length; i++) {
-    let letter = str.charAt(i);
-    if (str.indexOf(letter) === i && str.indexOf(letter, i + 1) === -1) { return letter; };
-  };
+  for (let i = 0; i < str.length; i++) {
+    const letter = str.charAt(i);
+    if (str.indexOf(letter) === i && str.indexOf(letter, i + 1) === -1) { return letter; };//eslint-disable-line
+  }
   return null;
-};
+}
 
 
 /**
@@ -275,10 +275,10 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-  let digit, digits, flag, sum, _i, _len;
+  let digit, flag, sum, _i, _len;
   flag = true;
   sum = 0;
-  digits = (ccn + '').split('').reverse();
+  const digits = (ccn + '').split('').reverse();
   for (_i = 0, _len = digits.length; _i < _len; _i++) {
     digit = digits[_i];
     digit = parseInt(digit, 10);
@@ -309,8 +309,8 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-  const sumNumbers = num.toString().split('').reduce((sum, item) => sum += Number(item), 0);//eslint-disable-line
-  return (sumNumbers > 9) ? (+sumNumbers.toString()[0]) + (+sumNumbers.toString()[1]) : sumNumbers;
+  const sumNum = num.toString().split('').reduce((sum, item) => sum += Number(item), 0);//eslint-disable-line
+  return (sumNum > 9) ? (+sumNum.toString()[0]) + (+sumNum.toString()[1]) : sumNum;//eslint-disable-line
 }
 
 
@@ -551,10 +551,10 @@ function evaluateTicTacToePosition(position) {
     return left === middle && middle === right && left !== undefined;
   }
   for (let i = 0; i < 3; i++) {
-    if (func(position[i][0], position[i][1], position[i][2])) { return position[i][0]; }
-    if (func(position[0][i], position[1][i], position[2][i])) { return position[0][i]; }
-    if (func(position[0][0], position[1][1], position[2][2])) { return position[0][0]; }
-    if (func(position[2][0], position[1][1], position[0][2])) { return position[2][0]; }
+    if (func(position[i][0], position[i][1], position[i][2])) { return position[i][0]; }//eslint-disable-line
+    if (func(position[0][i], position[1][i], position[2][i])) { return position[0][i]; }//eslint-disable-line
+    if (func(position[0][0], position[1][1], position[2][2])) { return position[0][0]; }//eslint-disable-line
+    if (func(position[2][0], position[1][1], position[0][2])) { return position[2][0]; }//eslint-disable-line
   }
 }
 
