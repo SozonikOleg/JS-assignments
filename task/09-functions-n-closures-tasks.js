@@ -105,15 +105,7 @@ function memoize(func) {
  * 
  */
 function retry(func, attempts) {
-  return function () {
-    try {
-      for (let i = 1; i < attempts; i++) {
-        return func();
-      }
-    } catch (err) {
-      return attempts;
-    }
-  };
+  throw new Error('Not implemented');
 }
 
 
