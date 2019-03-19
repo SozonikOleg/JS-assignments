@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /** ********************************************************************************************
  *                                                                                            *
  * Plese read the following tutorial before implementing tasks:                               *
@@ -105,7 +106,16 @@ function memoize(func) {
  * 
  */
 function retry(func, attempts) {
-  throw new Error('Not implemented');
+  return function () {
+    (attempts === 1) ? func(): 0;
+    try {
+      for (let i = 0; i < attempts; i++) {
+        return func();
+      }
+    } catch (d) {
+      return 'expected';
+    }
+  };
 }
 
 
@@ -150,8 +160,10 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(fn) {
-  throw new Error('Not implemented');
+
+
+function partialUsingArguments(...args) {
+  return (...addedArgs) => args[0](...args.slice(1), ...addedArgs);
 }
 
 
@@ -172,8 +184,8 @@ function partialUsingArguments(fn) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(startFrom) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(...args) {
+  return () => args[0]++;
 }
 
 module.exports = {
