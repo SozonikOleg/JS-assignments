@@ -12,7 +12,15 @@
  *   'abcdefghijklmnop',  'lmnopqrstuvwxyz'  => 'abcdefghijklmnopqrstuvwxyz'
  */
 function distinctLettersString(value1, value2) {
-  throw new Error('Not implemented');
+  const string = (value1 + value2);
+  const array = string.split('');
+  array.sort(function (a, b) {
+    return a.localeCompare(b);
+  });
+  const uniqueArray = array.filter(function (item, pos) {
+    return array.indexOf(item) === pos;
+  });
+  return uniqueArray.join('');
 }
 
 
@@ -29,7 +37,22 @@ function distinctLettersString(value1, value2) {
  */
 
 function lowerLetters(value) {
-  throw new Error('Not implemented');
+  const newArrey = value.split(' ').filter(item => item.length > 2);
+  const newString = newArrey.join(',');
+  const sortString = newString.split('').sort().join('');
+  const arr = [];
+  for (let i = 0; i < sortString.length; i++) {
+    if (sortString[i] !== sortString[i].toUpperCase()) {
+      arr.push(sortString[i]);
+    }
+  }
+  const obj = {};
+  const str = arr.join('');
+  for (let x = 0; x < str.length; x++) {
+    var l = str.charAt(x);
+    obj[l] = (isNaN(obj[l]) ? 1 : obj[l] + 1);
+  }
+  return obj;
 }
 
 /**
@@ -45,13 +68,33 @@ function lowerLetters(value) {
  * @return {string}
  *
  * @example
- *    'a clash if KINGS', 'a an the of'  =>  'A Clash of Kings'
+ *    'a clash if KINGS', 'a an the of'    =>  'A Clash of Kings'
  *    'THE WIND IN THE WILLOWS', 'The In'  => 'The Wind in the Willows'
  *    'the quick brown fox'  => 'The Quick Brown Fox'
  */
 
 function titleCaseConvert(title, minorWords) {
-  throw new Error('Not implemented');
+  const arrTitle = title.toLowerCase().split(' ');
+  const arrMinor = (minorWords === undefined) ? '' : minorWords.toLowerCase().split(' ');
+  const arrResult = [];
+  for (let i = 0; i < arrTitle.length; i++) {
+    if (arrMinor.indexOf(arrTitle[i]) !== -1) {
+      arrResult.push(arrTitle[i]);
+    } else {
+      arrResult.push(arrTitle[i][0].toUpperCase() + arrTitle[i].substring(1));
+    }
+  }
+  const arr = [];
+  for (let i = 0; i < arrResult.length; i++) {
+    if (arr.includes('The')) {
+      arr.push(arrResult[i]);
+    } else if (arrResult.indexOf(arrResult[i]) === 0) {
+      arr.push(arrResult[i][0].toUpperCase() + arrResult[i].substring(1));
+    } else {
+      arr.push(arrResult[i]);
+    }
+  }
+  return arr.join(' ');
 }
 
 /**
@@ -71,9 +114,34 @@ function titleCaseConvert(title, minorWords) {
  *  '5 1 2 + 4 * + 3 -'  =>  14   // 5 + ((1 + 2) * 4) -3
  */
 
-function calcRPN(expr) {
-  throw new Error('Not implemented');
+function calcRPN(postfix) {
+  console.log('____', typeof postfix);
+  if (postfix === '') {
+    return 0;
+  }
+
+  var resultStack = [];
+  postfix = postfix.split(' ');
+
+  console.log(postfix);
+  for (var i = 0; i < postfix.length; i++) {
+    console.log('____', postfix[i]);
+    if (postfix[i] === '+') {
+      return postfix[i - 1] + postfix[i - 2];
+    } else if (postfix[i] === '-') {
+      return postfix[i - 1] + postfix[i - 2];
+    } else if (postfix[i] === '*') {
+      return postfix[i - 1] + postfix[i - 2];
+    } else if (postfix[i] === '/') {
+      return postfix[i - 1] + postfix[i - 2];
+    } else if (postfix[i] === '^') {
+      return Math.pow(postfix[i - 1], postfix[i - 2]);
+    } else if(typeof +postfix[i] === 'number'){
+      return postfix[postfix.length -1];
+    }
+  }
 }
+
 
 module.exports = {
   distinctLettersString,
