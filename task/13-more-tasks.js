@@ -75,7 +75,7 @@ function lowerLetters(value) {
 
 function titleCaseConvert(title, minorWords) {
   const arrTitle = title.toLowerCase().split(' ');
-  const arrMinor = (minorWords === undefined) ? '' : minorWords.toLowerCase().split(' ');
+  const arrMinor = (minorWords === undefined) ? '' : minorWords.toLowerCase().split(' ');//eslint-disable-line
   const arrResult = [];
   for (let i = 0; i < arrTitle.length; i++) {
     if (arrMinor.indexOf(arrTitle[i]) !== -1) {
@@ -115,31 +115,32 @@ function titleCaseConvert(title, minorWords) {
  */
 
 function calcRPN(postfix) {
-  console.log('____', typeof postfix);
-  if (postfix === '') {
-    return 0;
-  }
+  // console.log('____', typeof postfix);
+  // if (postfix === '') {
+  //   return 0;
+  // }
 
-  var resultStack = [];
-  postfix = postfix.split(' ');
+  // var resultStack = [];
+  // postfix = postfix.split(' ');
 
-  console.log(postfix);
-  for (var i = 0; i < postfix.length; i++) {
-    console.log('____', postfix[i]);
-    if (postfix[i] === '+') {
-      return postfix[i - 1] + postfix[i - 2];
-    } else if (postfix[i] === '-') {
-      return postfix[i - 1] + postfix[i - 2];
-    } else if (postfix[i] === '*') {
-      return postfix[i - 1] + postfix[i - 2];
-    } else if (postfix[i] === '/') {
-      return postfix[i - 1] + postfix[i - 2];
-    } else if (postfix[i] === '^') {
-      return Math.pow(postfix[i - 1], postfix[i - 2]);
-    } else if(typeof +postfix[i] === 'number'){
-      return postfix[postfix.length -1];
-    }
-  }
+  // console.log(postfix);
+  // for (var i = 0; i < postfix.length; i++) {
+  //   console.log('____', postfix[i]);
+  //   if (postfix[i] === '+') {
+  //     return postfix[i - 1] + postfix[i - 2];
+  //   } else if (postfix[i] === '-') {
+  //     return postfix[i - 1] + postfix[i - 2];
+  //   } else if (postfix[i] === '*') {
+  //     return postfix[i - 1] + postfix[i - 2];
+  //   } else if (postfix[i] === '/') {
+  //     return postfix[i - 1] + postfix[i - 2];
+  //   } else if (postfix[i] === '^') {
+  //     return Math.pow(postfix[i - 1], postfix[i - 2]);
+  //   } else if(typeof +postfix[i] === 'number'){
+  //     return postfix[postfix.length -1];
+  //   }
+  // }
+  throw new Error('Not implemented');
 }
 
 
