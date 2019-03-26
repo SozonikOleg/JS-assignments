@@ -115,32 +115,33 @@ function titleCaseConvert(title, minorWords) {
  */
 
 function calcRPN(postfix) {
-  // console.log('____', typeof postfix);
-  // if (postfix === '') {
-  //   return 0;
-  // }
-
-  // var resultStack = [];
-  // postfix = postfix.split(' ');
-
-  // console.log(postfix);
-  // for (var i = 0; i < postfix.length; i++) {
-  //   console.log('____', postfix[i]);
-  //   if (postfix[i] === '+') {
-  //     return postfix[i - 1] + postfix[i - 2];
-  //   } else if (postfix[i] === '-') {
-  //     return postfix[i - 1] + postfix[i - 2];
-  //   } else if (postfix[i] === '*') {
-  //     return postfix[i - 1] + postfix[i - 2];
-  //   } else if (postfix[i] === '/') {
-  //     return postfix[i - 1] + postfix[i - 2];
-  //   } else if (postfix[i] === '^') {
-  //     return Math.pow(postfix[i - 1], postfix[i - 2]);
-  //   } else if(typeof +postfix[i] === 'number'){
-  //     return postfix[postfix.length -1];
-  //   }
-  // }
-  throw new Error('Not implemented');
+  if (postfix === '') {
+    return 0;
+  }
+  const stack = [];
+  const newArray = postfix.split(' ');
+  newArray.forEach((elem, i, arr) => {
+    if( !parseInt(elem)){
+      if(elem === '+'){
+        const resalt = stack.pop() + stack.pop(); 
+        stack.push(resalt);
+      } else if (elem === '-'){
+        const secondElem = stack.pop();
+        const resalt = stack.pop() - secondElem; 
+        stack.push(resalt);
+      } else if(elem === '*'){
+        const resalt = stack.pop() * stack.pop(); 
+        stack.push(resalt);
+      } else if(elem === '/'){
+        const secondElem = stack.pop();
+        const resalt = stack.pop() / secondElem; 
+        stack.push(resalt);
+      }
+    } else {
+      stack.push(+elem);
+    }
+  });
+  return stack.pop();
 }
 
 
