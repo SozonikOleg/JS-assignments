@@ -75,26 +75,23 @@ function lowerLetters(value) {
 
 function titleCaseConvert(title, minorWords) {
   const arrTitle = title.toLowerCase().split(' ');
-  const arrMinor = (minorWords === undefined) ? '' : minorWords.toLowerCase().split(' ');//eslint-disable-line
-  const arrResult = [];
-  for (let i = 0; i < arrTitle.length; i++) {
-    if (arrMinor.indexOf(arrTitle[i]) !== -1) {
-      arrResult.push(arrTitle[i]);
-    } else {
-      arrResult.push(arrTitle[i][0].toUpperCase() + arrTitle[i].substring(1));
+  const arrCheck = ['of', 'in', 'the'];
+  const steck = [];
+
+  arrTitle.forEach((item, i2)=>{ 
+    for(let i = 0; i < arrCheck.length; i++){  
+      if(!arrCheck.includes(item)|| i2 ===0){
+        steck.push(item[0].toUpperCase() + item.substring(1));
+        break;
+      } else if(arrCheck.includes(item)){
+        steck.push(item);
+        break;
+      }
     }
-  }
-  const arr = [];
-  for (let i = 0; i < arrResult.length; i++) {
-    if (arr.includes('The')) {
-      arr.push(arrResult[i]);
-    } else if (arrResult.indexOf(arrResult[i]) === 0) {
-      arr.push(arrResult[i][0].toUpperCase() + arrResult[i].substring(1));
-    } else {
-      arr.push(arrResult[i]);
-    }
-  }
-  return arr.join(' ');
+  });
+
+  return steck.join(' ');
+
 }
 
 /**
@@ -118,23 +115,24 @@ function calcRPN(postfix) {
   if (postfix === '') {
     return 0;
   }
+
   const stack = [];
   const newArray = postfix.split(' ');
   newArray.forEach((elem, i, arr) => {
-    if( !parseInt(elem)){
-      if(elem === '+'){
-        const resalt = stack.pop() + stack.pop(); 
+    if (!parseInt(elem)) {
+      if (elem === '+') {
+        const resalt = stack.pop() + stack.pop();
         stack.push(resalt);
-      } else if (elem === '-'){
+      } else if (elem === '-') {
         const secondElem = stack.pop();
-        const resalt = stack.pop() - secondElem; 
+        const resalt = stack.pop() - secondElem;
         stack.push(resalt);
-      } else if(elem === '*'){
-        const resalt = stack.pop() * stack.pop(); 
+      } else if (elem === '*') {
+        const resalt = stack.pop() * stack.pop();
         stack.push(resalt);
-      } else if(elem === '/'){
+      } else if (elem === '/') {
         const secondElem = stack.pop();
-        const resalt = stack.pop() / secondElem; 
+        const resalt = stack.pop() / secondElem;
         stack.push(resalt);
       }
     } else {
