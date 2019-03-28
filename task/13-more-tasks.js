@@ -12,7 +12,15 @@
  *   'abcdefghijklmnop',  'lmnopqrstuvwxyz'  => 'abcdefghijklmnopqrstuvwxyz'
  */
 function distinctLettersString(value1, value2) {
-  throw new Error('Not implemented');
+  const string = (value1 + value2);
+  const array = string.split('');
+  array.sort(function (a, b) {
+    return a.localeCompare(b);
+  });
+  const uniqueArray = array.filter(function (item, pos) {
+    return array.indexOf(item) === pos;
+  });
+  return uniqueArray.join('');
 }
 
 
@@ -29,7 +37,22 @@ function distinctLettersString(value1, value2) {
  */
 
 function lowerLetters(value) {
-  throw new Error('Not implemented');
+  const newArrey = value.split(' ').filter(item => item.length > 2);
+  const newString = newArrey.join(',');
+  const sortString = newString.split('').sort().join('');
+  const arr = [];
+  for (let i = 0; i < sortString.length; i++) {
+    if (sortString[i] !== sortString[i].toUpperCase()) {
+      arr.push(sortString[i]);
+    }
+  }
+  const obj = {};
+  const str = arr.join('');
+  for (let x = 0; x < str.length; x++) {
+    var l = str.charAt(x);
+    obj[l] = (isNaN(obj[l]) ? 1 : obj[l] + 1);
+  }
+  return obj;
 }
 
 /**
@@ -45,13 +68,30 @@ function lowerLetters(value) {
  * @return {string}
  *
  * @example
- *    'a clash if KINGS', 'a an the of'  =>  'A Clash of Kings'
+ *    'a clash if KINGS', 'a an the of'    =>  'A Clash of Kings'
  *    'THE WIND IN THE WILLOWS', 'The In'  => 'The Wind in the Willows'
  *    'the quick brown fox'  => 'The Quick Brown Fox'
  */
 
 function titleCaseConvert(title, minorWords) {
-  throw new Error('Not implemented');
+  const arrTitle = title.toLowerCase().split(' ');
+  const arrCheck = ['of', 'in', 'the'];
+  const steck = [];
+
+  arrTitle.forEach((item, i2)=>{ 
+    for(let i = 0; i < arrCheck.length; i++){  
+      if(!arrCheck.includes(item)|| i2 ===0){
+        steck.push(item[0].toUpperCase() + item.substring(1));
+        break;
+      } else if(arrCheck.includes(item)){
+        steck.push(item);
+        break;
+      }
+    }
+  });
+
+  return steck.join(' ');
+
 }
 
 /**
@@ -71,9 +111,37 @@ function titleCaseConvert(title, minorWords) {
  *  '5 1 2 + 4 * + 3 -'  =>  14   // 5 + ((1 + 2) * 4) -3
  */
 
-function calcRPN(expr) {
-  throw new Error('Not implemented');
+function calcRPN(postfix) {
+  if (postfix === '') {
+    return 0;
+  }
+
+  const stack = [];
+  const newArray = postfix.split(' ');
+  newArray.forEach((elem, i, arr) => {
+    if (!parseInt(elem)) {
+      if (elem === '+') {
+        const resalt = stack.pop() + stack.pop();
+        stack.push(resalt);
+      } else if (elem === '-') {
+        const secondElem = stack.pop();
+        const resalt = stack.pop() - secondElem;
+        stack.push(resalt);
+      } else if (elem === '*') {
+        const resalt = stack.pop() * stack.pop();
+        stack.push(resalt);
+      } else if (elem === '/') {
+        const secondElem = stack.pop();
+        const resalt = stack.pop() / secondElem;
+        stack.push(resalt);
+      }
+    } else {
+      stack.push(+elem);
+    }
+  });
+  return stack.pop();
 }
+
 
 module.exports = {
   distinctLettersString,
